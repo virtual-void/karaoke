@@ -7,11 +7,7 @@ require 'json'
 module Karaoke
 	class App < Sinatra::Base
 		configure do
-			hash = { "id" => "99", "table" => "Martin", "track" => "Lacrimosa - Seele im Not"}
-			@@array = []
-			@@array.push(hash)
-			@@array.push(hash)
-			@@array.push(hash)
+			@@array ||= []
 		end
 
 		get '/' do  
@@ -28,8 +24,19 @@ module Karaoke
 		end
 
 		post '/apply' do
-			#@@my_text = params[:data]
-			#haml :index
+			id = params[:id]
+			table = params[:table]
+			track = params[:track]
+			
+			hash_data ||= {}
+
+			hash_data = {
+			 	"id" => id,
+			 	"table" => table,
+			 	"track" => track
+			 }
+			 @@array << hash_data
+			 haml :admin
 		end
 	end
 end
