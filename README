@@ -1,0 +1,5 @@
+In order to get the karaoke to work, run the following in your shell:
+
+# bundle
+
+That assumes you have bundle gem installed and ruby (1.9.3).
