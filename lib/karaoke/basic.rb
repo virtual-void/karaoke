@@ -7,8 +7,9 @@ require 'json'
 module Karaoke
 	class App < Sinatra::Base
 		configure do
-			hash = { "firstname" => "Mark", "lastname" => "Martin", "age" => "24", "gender" => "M" }
+			hash = { "id" => "99", "table" => "Martin", "track" => "Lacrimosa - Seele im Not"}
 			@@array = []
+			@@array.push(hash)
 			@@array.push(hash)
 			@@array.push(hash)
 		end

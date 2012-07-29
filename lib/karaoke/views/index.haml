@@ -2,36 +2,27 @@
 %html  
   %head  
   %meta{charset: "utf-8"}
+  %script{type:"text/javascript",src:"/javascripts/jquery.js"}
   %script{type:"text/javascript",src:"/javascripts/application.js"}
+
   %link{href:"/css/styles.css", rel:"stylesheet"}
   %title Karaoke electronic display  
   %body  
-    #content  
+    #content
       %div{:id => 'table-begins'}
-        %table{:class => "center"}
+        %table{:class => "center", :id => "karaoke"}
           %tr
-            %th
-              \#
-            %th
-              TABLE
-            %th
-              SONG  
+            %th #
+            %th TABLE
+            %th SONG  
           %tr
-            %td
-              1
-              %br
-              2
-              %br
+            %td 1
+            %td PAPA
+            %td Meladze - Can't live without you
           %tr
-            %td
-              PAPA
-              %br
-              BEGEMOTY
-              %br
-          %tr
-            %td
-              Eminem - What's up
-              %br
-              Meladze - Can't live without you
-              %br
-      
+            %td 2
+            %td BEGEMOT
+            %td Eminem - Shut up!    
+    :javascript
+      update();
+        

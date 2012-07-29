@@ -12,8 +12,9 @@ table.center {
     margin-right:auto;
 }
 
-#table-begins table tr th {
-  border:1px solid white;
+#table-begins table th {
+  border:none;
+  border-bottom: 2px solid white;
   padding:2px;
   text-align:center;
   color: white;
@@ -23,14 +24,12 @@ table.center {
   font-style: normal;
   border-collapse:separate;
   font-weight: bold;
-  border:none;
 }
 
 #table-begins table tr td {
-  border:1px solid white;
-  padding:2px;
+  padding:5px;
   color: white;
-  text-align:left;
+  text-align:center;
   border:none;
   font: 20px 'BazarMedium';
 }
