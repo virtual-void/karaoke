@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"jso",
+				"jsonarray"
+			],
+			[
+				"p",
+				"push"
+			],
+			[
 				"admin",
 				"admin_data"
 			],
@@ -22,10 +30,6 @@
 			[
 				"re",
 				"result"
-			],
-			[
-				"jso",
-				"json_object"
 			],
 			[
 				"fe",
@@ -153,42 +157,44 @@
 			]
 		]
 	},
-	"buffers":
-	[
-		{
-			"file": "lib/karaoke/basic.rb",
-			"settings":
-			{
-				"buffer_size": 338,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "!!!  \n%html  \n  %head  \n  %script{type:\"text/javascript\",src:\"/javascripts/jquery.js\"}\n  %script{type:\"text/javascript\",src:\"/javascripts/application.js\"}\n  %link(rel=\"stylesheet\" href=\"css/styles.css\")  \n    %title My Sinatra Website  \n  %body  \n    #wrapper  \n      #header  \n        %h1 My Sinatra Website \n        %h2 A Simple Site made with Sinatra and HAML!  \n      #content  \n        %h1 The Home Page: #{@admin_data}\n        %div{:id => 'server-name'}\n        :javascript\n          update();\n        %p  \n          %input(type='text' name='foo')\n          Welcome to my website made with Sinatra and HAML.  \n        %p  \n          This is the home page and this is some text to fill out the home page!  \n      #side_bar  \n        %h1 Side Bar  \n        %p  \n          This is the side bar of the webpage  \n  \n      #footer  \n        %p  \n          This is the footer.  \n",
-			"file": "lib/karaoke/views/index.haml",
-			"file_size": 878,
-			"file_write_time": 1343504429000000,
-			"settings":
-			{
-				"buffer_size": 878,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "lib/karaoke/public/javascripts/application.js",
-			"settings":
-			{
-				"buffer_size": 416,
-				"line_ending": "Unix"
-			}
-		}
-	],
-	"build_system": "",
+	"build_system": "Packages/JSHint/JSHint.sublime-build",
 	"command_palette":
 	{
-		"height": 138.0,
+		"height": 182.0,
 		"selected_items":
 		[
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"pa",
+				"Package Control: List Packages"
+			],
+			[
+				"JSL",
+				"JSLint: Show JSLint Result"
+			],
+			[
+				"jslin",
+				"JSLint: Run JSLint"
+			],
+			[
+				"JSHi",
+				"JSHint"
+			],
+			[
+				"java",
+				"Format: Javascript"
+			],
+			[
+				"jqu",
+				"Snippet: jQuery.get"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
 			[
 				"form",
 				"Format: Javascript"
@@ -196,14 +202,6 @@
 			[
 				"Form",
 				"Format: Javascript"
-			],
-			[
-				"pack",
-				"Preferences: Browse Packages"
-			],
-			[
-				"pa",
-				"Package Control: Install Package"
 			],
 			[
 				"insta",
@@ -507,6 +505,12 @@
 	},
 	"file_history":
 	[
+		"/Users/crible/Projects/sinatra/lib/karaoke/views/test.html",
+		"/Users/crible/Library/Application Support/Sublime Text 2/Packages/BracketHighlighter/BracketHighlighter.sublime-settings",
+		"/Users/crible/Library/Application Support/Sublime Text 2/Packages/BracketHighlighter/readme.md",
+		"/Users/crible/Library/Application Support/Sublime Text 2/Packages/BracketHighlighter/Default (OSX).sublime-keymap",
+		"/Users/crible/Library/Application Support/Sublime Text 2/Packages/Haml/README.markdown",
+		"/Users/crible/Projects/sinatra/sinatra.sublime-project",
 		"/Users/crible/.zshrc",
 		"/Users/crible/Library/Application Support/Sublime Text 2/Packages/JsFormat/README.md",
 		"/Users/crible/Library/Application Support/Sublime Text 2/Packages/JsFormat/Default (OSX).sublime-keymap",
@@ -674,373 +678,6 @@
 		"whole_word": false,
 		"wrap": true
 	},
-	"groups":
-	[
-		{
-			"sheets":
-			[
-				{
-					"buffer": 0,
-					"file": "lib/karaoke/basic.rb",
-					"settings":
-					{
-						"buffer_size": 338,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								109,
-								109
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"encoding_helper_confidence": 1.0,
-							"encoding_helper_encoding": "UTF-8",
-							"encoding_helper_encoding_sublime": "UTF-8",
-							"gjslint_ignore":
-							[
-								110.0
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"indent": 1.0,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"remote_loading": false,
-							"sublimelinter": true,
-							"sublimelinter_delay": 0.0,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": false,
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"synced": false,
-							"syntax": "Packages/Ruby/Ruby.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "lib/karaoke/views/index.haml",
-					"settings":
-					{
-						"buffer_size": 878,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6,
-								6
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"encoding_helper_confidence": 1.0,
-							"encoding_helper_encoding": "UTF-8",
-							"encoding_helper_encoding_sublime": "UTF-8",
-							"gjslint_ignore":
-							[
-								110.0
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"indent": 1.0,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"remote_loading": false,
-							"sublimelinter": true,
-							"sublimelinter_delay": 0.0,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": false,
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"synced": false,
-							"syntax": "Packages/Rails/Ruby Haml.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "lib/karaoke/public/javascripts/application.js",
-					"settings":
-					{
-						"buffer_size": 416,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								416,
-								416
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"encoding_helper_confidence": 1.0,
-							"encoding_helper_encoding": "UTF-8",
-							"encoding_helper_encoding_sublime": "UTF-8",
-							"gjslint_ignore":
-							[
-								110.0
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"indent": 1.0,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"remote_loading": false,
-							"sublimelinter": true,
-							"sublimelinter_delay": 0.0,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": false,
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"synced": false,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
-			]
-		}
-	],
 	"incremental_find":
 	{
 		"height": 32.0
@@ -1081,6 +718,10 @@
 		"height": 110.0
 	},
 	"output.git":
+	{
+		"height": 110.0
+	},
+	"output.jslint_result_view":
 	{
 		"height": 110.0
 	},
