@@ -1,11 +1,15 @@
 require 'rubygems'
 require 'sinatra'
 require 'haml'
+require 'json'
 
 module Karaoke
 	class App < Sinatra::Base
 		configure do
-			@@my_text = "Hrld"
+			hash = { "firstname" => "Mark", "lastname" => "Martin", "age" => "24", "gender" => "M" }
+			@@array = []
+			@@array.push(hash)
+			@@array.push(hash)
 		end
 
 		get '/' do  
@@ -17,12 +21,13 @@ module Karaoke
 		end
 
 		get '/update' do
-			@@my_text
+			content_type :json
+			@@array.to_json
 		end
 
 		post '/apply' do
-			@@my_text = params[:data]
-		#haml :index
+			#@@my_text = params[:data]
+			#haml :index
 		end
 	end
 end

@@ -4,27 +4,9 @@
   %script{type:"text/javascript",src:"/javascripts/jquery.js"}
   %script{type:"text/javascript",src:"/javascripts/application.js"}
   %link(rel="stylesheet" href="css/styles.css")  
-    %title My Sinatra Website  
+    %title Karaoke bar electronic display  
   %body  
-    #wrapper  
-      #header  
-        %h1 My Sinatra Website 
-        %h2 A Simple Site made with Sinatra and HAML!  
-      #content  
-        %h1 The Home Page: #{@admin_data}
-        %div{:id => 'server-name'}
+    #content  
+      %div{:id => 'server-name'}
         :javascript
           update();
-        %p  
-          %input(type='text' name='foo')
-          Welcome to my website made with Sinatra and HAML.  
-        %p  
-          This is the home page and this is some text to fill out the home page!  
-      #side_bar  
-        %h1 Side Bar  
-        %p  
-          This is the side bar of the webpage  
-  
-      #footer  
-        %p  
-          This is the footer.  
