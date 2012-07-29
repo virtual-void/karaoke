@@ -19,7 +19,7 @@ table.center {
   text-align:center;
   color: white;
   font-family: "Trebuchet MS", sans-serif;
-  font-size: 30px;
+  font-size: 50px;
   line-height: 1.4em;
   font-style: normal;
   border-collapse:separate;
@@ -31,6 +31,6 @@ table.center {
   color: white;
   text-align:center;
   border:none;
-  font: 20px 'BazarMedium';
+  font: 35px 'BazarMedium';
 }
 
