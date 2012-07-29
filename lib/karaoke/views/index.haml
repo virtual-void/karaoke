@@ -1,12 +1,37 @@
 !!!  
 %html  
   %head  
-  %script{type:"text/javascript",src:"/javascripts/jquery.js"}
+  %meta{charset: "utf-8"}
   %script{type:"text/javascript",src:"/javascripts/application.js"}
-  %link(rel="stylesheet" href="css/styles.css")  
-    %title Karaoke bar electronic display  
+  %link{href:"/css/styles.css", rel:"stylesheet"}
+  %title Karaoke electronic display  
   %body  
     #content  
-      %div{:id => 'server-name'}
-        :javascript
-          update();
+      %div{:id => 'table-begins'}
+        %table{:class => "center"}
+          %tr
+            %th
+              \#
+            %th
+              TABLE
+            %th
+              SONG  
+          %tr
+            %td
+              1
+              %br
+              2
+              %br
+          %tr
+            %td
+              PAPA
+              %br
+              BEGEMOTY
+              %br
+          %tr
+            %td
+              Eminem - What's up
+              %br
+              Meladze - Can't live without you
+              %br
+      

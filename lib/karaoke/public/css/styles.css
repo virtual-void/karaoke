@@ -1,62 +1,37 @@
-#wrapper{  
-    width:66%;  
-    margin:auto;  
-}  
-  
-#header{  
-    background-color:#ade;  
-}  
-  
-#header>h1{  
-    font-size:200%;  
-}  
-  
-h2{  
-    font-size:130%;  
-    font-family:sans-serif;  
-}  
-  
-#content{  
-    margin:12px 0;  
-    float:left;  
-}  
-  
-#side_bar{  
-    margin:12px 0;  
-    width :30%;  
-    float:rightright;  
-    clear:none;  
-    background-color:#ddd;  
-}  
-  
-h1{  
-    font-size:150%;  
-}  
-  
-#footer{  
-    clear:both;  
-    background-color:#ade;  
-    font-size:75%;  
-    font-family:sans-serif;  
-    color:#333;  
-    border-top:solid 1px #69a;  
-}  
-  
-ol{  
-    padding-top:20px;  
-    background-color:#ade;  
-    display:block;  
-}  
-  
-li{  
-    color:white;  
-    text-align:center;  
-    display:inline;  
-    padding:5px 10px 0 10px;  
-    margin-right:2px;  
-    background-color: #69a;  
-}  
-  
-a{  
-    text-decoration:none;  
-}  
+body{
+	background-color: black;
+}
+
+table 
+{
+	width:100%;
+}
+
+table.center {
+    margin-left:auto; 
+    margin-right:auto;
+}
+
+#table-begins table tr th {
+  border:1px solid white;
+  padding:2px;
+  text-align:center;
+  color: white;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 30px;
+  line-height: 1.4em;
+  font-style: normal;
+  border-collapse:separate;
+  font-weight: bold;
+  border:none;
+}
+
+#table-begins table tr td {
+  border:1px solid white;
+  padding:2px;
+  color: white;
+  text-align:left;
+  border:none;
+  font: 20px 'BazarMedium';
+}
+
