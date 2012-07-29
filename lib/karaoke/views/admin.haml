@@ -5,10 +5,13 @@
   %body    
   %h2 Admin form  
   %form(action='/apply' method='POST')
+    %br ID:
     %input(type='text' name='id')
     %p
+    %br Table name:
     %input(type='text' name='table')
     %p
+    %br Name of the song:
     %input(type='text' name='track')
     %p
     %input(type='submit')

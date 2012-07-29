@@ -19,8 +19,9 @@ module Karaoke
 		end
 
 		get '/update' do
+			puts @@array
 			content_type :json
-			@@array.to_json
+			@@array.sort_by{|f| f["id"]}.to_json
 		end
 
 		post '/apply' do
@@ -35,8 +36,20 @@ module Karaoke
 			 	"table" => table,
 			 	"track" => track
 			 }
-			 @@array << hash_data
-			 haml :admin
+
+ 			hash_item =  @@array.find{|f| f["id"].eql?(id)}
+			
+			unless hash_item 
+				puts "Added to array"
+				@@array << hash_data
+			else
+				hash_item["table"] = table
+				hash_item["track"] = track
+			end
+
+			puts @@array
+
+			redirect :admin
 		end
 	end
 end
