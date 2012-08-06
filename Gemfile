@@ -5,3 +5,8 @@ gem "rspec"
 gem "haml"
 gem "sinatra"
 gem "json"
+gem 'dm-core'
+gem 'dm-types'
+gem 'dm-migrations'
+gem 'dm-serializer'
+gem "dm-sqlite-adapter"

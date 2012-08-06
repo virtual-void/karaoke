@@ -2,20 +2,63 @@
 %html  
   %head  
   %meta{charset: "utf-8"}
-  %script{type:"text/javascript",src:"/javascripts/jquery-1.7.2.min.js"}
-  %script{type:"text/javascript",src:"/javascripts/jquery-ui-1.8.22.custom.min.js"}
-  %script{type:"text/javascript",src:"/javascripts/application.js"}
 
-  %link{href:"/css/styles.css", rel:"stylesheet"}
-  %title Karaoke electronic display  
+  %link{href:"/css/jquery-ui-1.8.22.custom.css", rel:"stylesheet", type:"text/css"}
+
+  <!-- Include one of jTable styles. -->
+  %link{href:"/javascripts/jtable/themes/standard/blue/jtable_blue.css", rel:"stylesheet", type:"text/css"}
+  
+  %script{src:"/javascripts/jquery-1.7.2.min.js", type:"text/javascript"}
+  %script{src:"/javascripts/jquery-ui-1.8.22.custom.min.js", type:"text/javascript"}
+  
+  <!-- A helper library for JSON serialization -->
+  %script{src:"/javascripts/jtable/external/json2.js", type:"text/javascript"}
+  <!-- Include jTable script file. -->
+  %script{src:"/javascripts/jtable/jquery.jtable.min.js", type:"text/javascript"}
+
+  %title Karaoke electronic display
   %body  
-    #content
-      %div{:id => 'table-begins'}
-        %table{:class => "center", :id => "karaoke"}
-          %tr
-            %th #
-            %th TABLE
-            %th SONG      
+    %div{:class => "site-container"}
+      %div{:id => "ArtistTableContainer"}
     :javascript
-      update();
+        $(document).ready(function () {
+          $('#ArtistTableContainer').jtable({
+              title: 'Table of artists',
+              actions: {
+                  listAction: '/ArtistList',
+                  createAction: '/CreateArtist',
+                  updateAction: '/UpdateArtist',
+                  deleteAction: '/DeleteArtist'
+              },
+              fields: {
+                  id: {
+                      key: true,
+                      create: false,
+                      edit: false,
+                      list: false
+                  },
+                  status: {
+                      title: 'Status',
+                      width: '10%',
+                      type: 'radiobutton',
+                      options: { 'new': 'New', 'open': 'Open', 'closed': 'Closed', 'invalid': 'Invalid' },
+                      defaultValue: 'new'
+                  },
+                  name: {
+                      title: 'Table Name',
+                      width: '40%'
+                  },
+                  record_date: {
+                      title: 'Record date',
+                      width: '30%',
+                      type: 'date',
+                      create: false,
+                      edit: false,
+                      displayFormat: 'yy-mm-dd'
+                  }
+              }
+          });
+   
+          $('#ArtistTableContainer').jtable('load');
+      });
         
