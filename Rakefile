@@ -19,3 +19,8 @@ desc  "Run all specs with simplecov"
 RSpec::Core::RakeTask.new(:coverage) do |t|
   ENV['COVERAGE'] = "true"
 end
+
+desc 'Migrate DataMapper database'
+task :migrate do
+  DataMapper.auto_migrate!
+end
