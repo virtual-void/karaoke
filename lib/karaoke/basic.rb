@@ -77,6 +77,24 @@ module Karaoke
 			p result.to_json
 		end
 
+		post '/DeleteTable' do
+			begin
+				table = Table.get(params[:id])
+				table.destroy
+
+			rescue Exception => e
+				result = {
+					"Result" => "Error", "Message" => e.message
+				}
+			else
+				result = {
+					"Result" => "OK"
+				}
+			end
+
+			p result.to_json
+		end
+
 		post '/GetTableOptions' do
 			tables = Table.all()
 
