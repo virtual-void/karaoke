@@ -7,7 +7,7 @@ module Karaoke
 	class App < Sinatra::Base
 		#PErforms configuration and initialization steps
 		configure do
-			#@@array ||= []
+			@array ||= []
 			#@@personMap ||= []
 		end
 
@@ -25,6 +25,15 @@ module Karaoke
 
 		get '/admin' do
 			haml :admin	
+		end
+
+		get '/update' do
+			content_type :json
+			#@@array.sort_by{|f| f["id"]}.to_json
+		end
+
+		get '/view' do
+			haml :view
 		end
 
 		post '/TableList' do
@@ -50,6 +59,23 @@ module Karaoke
 				result = {
 					"Result" => "OK",
 					"Record" => JSON.parse(table.to_json)
+				}
+			end
+
+			p result.to_json
+		end
+
+		post '/UpdateTable' do
+			begin
+				table = Table.get(params[:id])
+				table.update(:name => params[:name])
+			rescue Exception => e
+				result = {
+					"Result" => "Error", "Message" => e.message
+				}
+			else
+				result = {
+					"Result" => "OK"
 				}
 			end
 
