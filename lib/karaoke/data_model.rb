@@ -22,11 +22,11 @@ module Karaoke
  
 		property :id,     	Serial
 		property :name, 	String,  	:required => true
-		property :rating, 	Integer
+		#property :rating, 	Integer
 		#has n, :artists  # defaults to :required => true
-		def self.popular
-			all(:rating.gt => 3)
-		end
+		# def self.popular
+		# 	all(:rating.gt => 3)
+		# end
 	end
 
 	class Table

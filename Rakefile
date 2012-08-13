@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'bundler'
+require 'dm-core'
+require 'dm-migrations'
 
 require 'rspec/core/rake_task'
 

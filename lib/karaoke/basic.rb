@@ -101,7 +101,7 @@ module Karaoke
 		post '/UpdateArtist' do
 			begin
 				person = Artist.get(params[:id])
-				person.update(:status => params[:status], :name => params[:name])
+				person.update(:status => params[:status])
 			
 			rescue Exception => e
 				result = {
