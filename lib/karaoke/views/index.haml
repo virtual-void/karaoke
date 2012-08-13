@@ -1,3 +1,4 @@
+-# coding: UTF-8
 !!!  
 %html  
   %head  
@@ -17,48 +18,21 @@
   %script{src:"/javascripts/jtable/jquery.jtable.min.js", type:"text/javascript"}
 
   %title Karaoke electronic display
-  %body  
-    %div{:class => "site-container"}
-      %div{:id => "ArtistTableContainer"}
+  %body
     :javascript
-        $(document).ready(function () {
-          $('#ArtistTableContainer').jtable({
-              title: 'Table of artists',
-              actions: {
-                  listAction: '/ArtistList',
-                  createAction: '/CreateArtist',
-                  updateAction: '/UpdateArtist',
-                  deleteAction: '/DeleteArtist'
-              },
-              fields: {
-                  id: {
-                      key: true,
-                      create: false,
-                      edit: false,
-                      list: false
-                  },
-                  status: {
-                      title: 'Status',
-                      width: '10%',
-                      type: 'radiobutton',
-                      options: { 'new': 'New', 'open': 'Open', 'closed': 'Closed', 'invalid': 'Invalid' },
-                      defaultValue: 'new'
-                  },
-                  name: {
-                      title: 'Table Name',
-                      width: '40%'
-                  },
-                  record_date: {
-                      title: 'Record date',
-                      width: '30%',
-                      type: 'date',
-                      create: false,
-                      edit: false,
-                      displayFormat: 'yy-mm-dd'
-                  }
-              }
-          });
-   
-          $('#ArtistTableContainer').jtable('load');
-      });
-        
+        $(function() {
+          $("#tabs").tabs();
+        });
+    %div{:class => "site-container"}
+      #tabs
+        %ul
+          %li
+            %a{:href => "test"} Столики
+          %li
+            %a{:href => "artists"} Исполнители
+          %li
+            %a{:href => "#tabs-3"} Всякая хуета
+        #tabs-3
+          %p Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.
+          %p Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.
+            

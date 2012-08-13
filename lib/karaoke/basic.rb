@@ -17,11 +17,10 @@ module Karaoke
 	 
 	    property :id, 			Serial
 	    property :status, 		Enum[ :new, :open, :closed, :invalid ], :default => :new
-	    property :name, 		String,  	:required => true
     	property :record_date, 	DateTime,  	:default => Time.now
 
-    	has 1, :song
-    	has 1, :table
+		#belongs_to :song
+		belongs_to :table
 	end
   
   	class Song
@@ -31,7 +30,7 @@ module Karaoke
 		property :name, 	String,  	:required => true
 		property :rating, 	Integer
 		 
-		belongs_to :artist  # defaults to :required => true
+		#has n, :artists  # defaults to :required => true
 		 
 		def self.popular
 			all(:rating.gt => 3)
@@ -44,7 +43,7 @@ module Karaoke
 		property :id,     	Serial
 		property :name, 	String,  	:required => true
 
-		belongs_to :artist  # defaults to :required => true
+		has n, :artists  # defaults to :required => true
 	end
 
 	DataMapper.finalize
@@ -61,10 +60,55 @@ module Karaoke
 			haml :index  
 		end  
 
+		get '/test' do
+			haml :test	
+		end
+
+		get '/artists' do
+			haml :artists	
+		end
+
 		get '/admin' do
 			haml :admin	
 		end
 
+		post '/TableList' do
+			if Table.all.empty?
+				result = { "Result" => "OK" }
+			else
+				result = { "Result" => "OK", "Records" => JSON.parse(Table.all.to_json) }
+			end
+			p result.to_json
+		end
+
+		post '/CreateTable' do
+			begin
+				table = Table.new
+				table.name = params[:name]
+				table.save
+
+			rescue Exception => e
+				result = {
+					"Result" => "Error", "Message" => e.message
+				}
+			else
+				result = {
+					"Result" => "OK",
+					"Record" => JSON.parse(table.to_json)
+				}
+			end
+
+			p result.to_json
+		end
+
+		post '/GetTableOptions' do
+			tables = Table.all()
+
+			result = { "Result" => "OK", "Options" => JSON.parse(tables.to_json.gsub('id', 'Value').gsub('name', 'DisplayText')) }
+			
+			p result.to_json
+		end
+		
 		post '/ArtistList' do
 			if Artist.all.empty?
 				result = {
@@ -82,7 +126,7 @@ module Karaoke
 			begin
 				person = Artist.new
 				person.status = params[:status]
-				person.name = params[:name]
+				person.table = Table.get(params[:table_id])
 				person.save
 
 			rescue Exception => e

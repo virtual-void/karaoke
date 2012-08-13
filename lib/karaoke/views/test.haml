@@ -1,0 +1,57 @@
+-# coding: UTF-8
+:javascript
+  availableTags = [
+  	"ActionScript",
+    "AppleScript",
+    "Asp",
+    "BASIC",
+    "C",
+    "C++",
+    "Clojure",
+    "COBOL",
+    "ColdFusion",
+    "Erlang",
+    "Fortran",
+    "Groovy",
+    "Haskell",
+    "Java",
+    "JavaScript",
+    "Lisp",
+    "Perl",
+    "PHP",
+    "Python",
+    "Ruby",
+    "Scala",
+    "Scheme"];
+
+  $('#TablesContainer').jtable({
+  	messages: russianMessagesTable, //Localization
+  	title: 'Список столиков',
+    actions: {
+      listAction: '/TableList',
+      createAction: '/CreateTable',
+      updateAction: '/UpdateTable',
+      deleteAction: '/DeleteTable'
+    },
+    fields: {
+      id: {
+        key: true,
+        create: false,
+        edit: false,
+        list: false
+      },
+      name: {
+        title: 'Столик',
+        width: '100%'
+      }
+    },
+    formCreated: function (event, data) {
+      data.form.find('input[name="name"]').autocomplete({
+        source: availableTags
+        });
+      }
+    });
+
+  $('#TablesContainer').jtable('load');
+
+%div{:id => "TablesContainer"}
