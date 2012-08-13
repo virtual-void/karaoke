@@ -7,7 +7,6 @@ module Karaoke
 	class App < Sinatra::Base
 		#PErforms configuration and initialization steps
 		configure do
-			@array ||= []
 			#@@personMap ||= []
 		end
 
@@ -15,16 +14,12 @@ module Karaoke
 			haml :index  
 		end  
 
-		get '/test' do
-			haml :test	
+		get '/tables' do
+			haml :tables	
 		end
 
 		get '/artists' do
 			haml :artists	
-		end
-
-		get '/admin' do
-			haml :admin	
 		end
 
 		get '/update' do
