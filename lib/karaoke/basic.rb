@@ -115,8 +115,19 @@ module Karaoke
 					"Result" => "OK", "Records" => ''
 				}
 			else
+				persons = Artist.all
+				result_ = []
+
+				persons.each do |p|
+					song = p.songs[0] #get first song
+					#puts "SONG: #{song.attributes.merge(p.attributes).to_json(:only => [:name])}"
+					result_ << song.attributes.merge(p.attributes)
+				end
+				
+				puts "JSON::: #{result_.to_json}"
+
 				result = {
-					"Result" => "OK", "Records" => JSON.parse(Artist.all.to_json)
+					"Result" => "OK", "Records" => JSON.parse(result_.to_json.gsub('name','song_name'))
 				}
 			end
 			p result.to_json
@@ -133,16 +144,15 @@ module Karaoke
 				person.songs << song
 
 				person.save
-
 			rescue Exception => e
 				result = {
 					"Result" => "Error", "Message" => e.message
 				}
 			else
-				#json = song.attributes.merge({:artist => song.artist.attributes}).to_json
+				json = song.attributes.merge(song.artist.attributes).to_json(:only => [:name])
 				result = {
 					"Result" => "OK",
-					"Record" => JSON.parse(person.to_json) #json
+					"Record" => JSON.parse(json.gsub('name','song_name'))
 				}
 			end
 
@@ -152,6 +162,10 @@ module Karaoke
 		post '/UpdateArtist' do
 			begin
 				person = Artist.get(params[:id])
+
+				song = person.songs[0]
+
+				song.update(:name => params[:song_name])
 				person.update(:status => params[:status])
 			
 			rescue Exception => e
