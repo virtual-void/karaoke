@@ -15,6 +15,7 @@ module Karaoke
     	property :record_date, 	DateTime,  	:default => Time.now
 		#belongs_to :song
 		belongs_to :table
+		has n, :songs
 	end
   
   	class Song
@@ -22,7 +23,7 @@ module Karaoke
  
 		property :id,     	Serial
 		property :name, 	String,  	:required => true
-		
+		belongs_to :artist
 	end
 
 	class Table

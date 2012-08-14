@@ -26,7 +26,10 @@ module Karaoke
 			content_type :json
 			result ||= {}
 			unless Table.all.empty?
-				
+				tables = Table.all
+				tables.each do |t|
+					puts t.name
+				end
 			end
 		end
 
@@ -105,7 +108,7 @@ module Karaoke
 			
 			p result.to_json
 		end
-		
+
 		post '/ArtistList' do
 			if Artist.all.empty?
 				result = {
@@ -123,7 +126,12 @@ module Karaoke
 			begin
 				person = Artist.new
 				person.status = params[:status]
+
+				song = Song.new
+				song.name = params[:song_name]
 				person.table = Table.get(params[:table_id])
+				person.songs << song
+
 				person.save
 
 			rescue Exception => e
@@ -131,9 +139,10 @@ module Karaoke
 					"Result" => "Error", "Message" => e.message
 				}
 			else
+				#json = song.attributes.merge({:artist => song.artist.attributes}).to_json
 				result = {
 					"Result" => "OK",
-					"Record" => JSON.parse(person.to_json)
+					"Record" => JSON.parse(person.to_json) #json
 				}
 			end
 
@@ -161,6 +170,11 @@ module Karaoke
 		post '/DeleteArtist' do
 			begin
 				person = Artist.get(params[:id])
+				#delete all songs belong to an artist
+				person.songs.each do |s|
+					s.destroy
+				end
+
 				person.destroy
 
 			rescue Exception => e
