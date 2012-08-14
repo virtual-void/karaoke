@@ -1,3 +1,4 @@
+-# coding: UTF-8
 !!!  
 %html  
   %head  
@@ -7,14 +8,15 @@
   %script{type:"text/javascript",src:"/javascripts/application.js"}
 
   %link{href:"/css/styles.css", rel:"stylesheet"}
-  %title Karaoke electronic display  
+
+  %title Электронное табло караоке
   %body  
     #content
       %div{:id => 'table-begins'}
         %table{:class => "center", :id => "karaoke"}
           %tr
             %th #
-            %th TABLE
-            %th SONG      
+            %th СТОЛИК
+            %th ПЕСНЯ    
     :javascript
       update();

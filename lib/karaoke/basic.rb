@@ -24,7 +24,10 @@ module Karaoke
 
 		get '/update' do
 			content_type :json
-			#@@array.sort_by{|f| f["id"]}.to_json
+			result ||= {}
+			unless Table.all.empty?
+				
+			end
 		end
 
 		get '/view' do
