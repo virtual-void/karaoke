@@ -24,13 +24,18 @@ module Karaoke
 
 		get '/update' do
 			content_type :json
-			result ||= {}
-			unless Table.all.empty?
-				tables = Table.all
-				tables.each do |t|
-					puts t.name
-				end
+			persons = Artist.all
+			result_ = []
+
+			persons.each do |p|
+				song = p.songs[0] #get first song
+				#puts "SONG: #{song.attributes.merge(p.attributes).to_json(:only => [:name])}"
+				result_ << song.attributes.merge(p.attributes)
 			end
+			#puts "JSON_VIEW #{result_.to_json}"
+			json = 	JSON.parse(result_.to_json.gsub('name','song_name'))
+			puts "JSON_VIEW #{json.to_json}"
+			json.to_json
 		end
 
 		get '/view' do
@@ -167,7 +172,6 @@ module Karaoke
 
 				song.update(:name => params[:song_name])
 				person.update(:status => params[:status])
-			
 			rescue Exception => e
 				result = {
 					"Result" => "Error", "Message" => e.message
@@ -190,7 +194,6 @@ module Karaoke
 				end
 
 				person.destroy
-
 			rescue Exception => e
 				result = {
 					"Result" => "Error", "Message" => e.message
