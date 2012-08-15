@@ -10,12 +10,9 @@ $:.unshift( '.' )
 $:.unshift( File.dirname(__FILE__) + '../lib' )
 
 require 'karaoke/data_model'
-require 'karaoke/basic'
+require 'karaoke/app'
 
 set :environment, :test
-
-# Include the Rack test methods to Test::Unit
-#Test::Unit::TestCase.send :include, Rack::Test::Methods
 
 def app
 	@app = Karaoke::App.new

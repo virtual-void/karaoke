@@ -3,7 +3,7 @@ Encoding.default_external = "UTF-8"
 
 $:.unshift( './lib')
 
-require 'karaoke/basic'
+require 'karaoke/app'
 require 'karaoke/data_model'
 
 run Karaoke::App
