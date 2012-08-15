@@ -12,17 +12,16 @@ $:.unshift( File.dirname(__FILE__) + '../lib' )
 require 'karaoke/data_model'
 require 'karaoke/basic'
 
-set :environment, :development
+set :environment, :test
 
 # Include the Rack test methods to Test::Unit
 #Test::Unit::TestCase.send :include, Rack::Test::Methods
 
-# Add an app method for RSpec
 def app
-  Sinatra::Application
+	@app = Karaoke::App.new
 end
 
-Rspec.configure do |config|
-  # config.before(:each) { DataMapper.auto_migrate! }
-  config.include Rack::Test::Methods
-end
+# set test environment
+Karaoke::App.set :run, false
+Karaoke::App.set :raise_errors, true
+Karaoke::App.set :logging, false

@@ -4,7 +4,7 @@ require 'dm-migrations'
 require 'dm-serializer'
 
 #Just for logging only
-DataMapper::Logger.new(STDOUT, :debug)
+#DataMapper::Logger.new(STDOUT, :debug)
 # Open the database karaoke.db
 DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/db/#{Sinatra::Application.environment}.sqlite" )
 

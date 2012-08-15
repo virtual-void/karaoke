@@ -18,11 +18,11 @@ describe Karaoke do
 	end
 
 	it "should return all Tables from DB" do
-		puts "TABLE COUNT: #{Karaoke::Table.all.count}"
+		#puts "TABLE COUNT: #{Karaoke::Table.all.count}"
 	end
 
 	it "should return all Artists from DB" do
-		puts "ARTISTS COUNT: #{Karaoke::Artist.all.count}"
+		#puts "ARTISTS COUNT: #{Karaoke::Artist.all.count}"
 		persons = Karaoke::Artist.all()
 		result_ = []
 
@@ -32,7 +32,7 @@ describe Karaoke do
 			result_ << song.attributes.merge(p.attributes)
 		end
 		
-		puts "JSON::: #{result_.to_json}"
+		#puts "JSON::: #{result_.to_json}"
 	end
 
 end

@@ -5,6 +5,7 @@ gem "rspec"
 gem "haml"
 gem "sinatra"
 gem "json"
+gem "rack-test"
 gem 'dm-core'
 gem 'dm-types'
 gem 'dm-rspec'
