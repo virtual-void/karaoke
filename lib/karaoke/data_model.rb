@@ -3,6 +3,8 @@ require 'dm-types'
 require 'dm-migrations'
 require 'dm-serializer'
 
+#Just for logging only
+DataMapper::Logger.new(STDOUT, :debug)
 # Open the database karaoke.db
 DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/db/#{Sinatra::Application.environment}.sqlite" )
 
@@ -11,19 +13,20 @@ module Karaoke
 		include DataMapper::Resource
 	 
 	    property :id, 			Serial
-	    property :status, 		Enum[ :new, :open, :closed, :invalid ], :default => :new
+	    property :status, 		Enum[ :regular, :paid, :vip, :outofturn ], :default => :regular
     	property :record_date, 	DateTime,  	:default => Time.now
 		#belongs_to :song
 		belongs_to :table
-		has n, :songs
+		belongs_to :song
+		# has n, :songs
 	end
   
-  	class Song
-   		include DataMapper::Resource
+ 	class Song
+  		include DataMapper::Resource
  
 		property :id,     	Serial
 		property :name, 	String,  	:required => true
-		belongs_to :artist
+		has n, :artists
 	end
 
 	class Table

@@ -120,11 +120,11 @@ module Karaoke
 					"Result" => "OK", "Records" => ''
 				}
 			else
-				persons = Artist.all
+				persons = Artist.all()
 				result_ = []
 
 				persons.each do |p|
-					song = p.songs[0] #get first song
+					song = p.song #get first song
 					#puts "SONG: #{song.attributes.merge(p.attributes).to_json(:only => [:name])}"
 					result_ << song.attributes.merge(p.attributes)
 				end
@@ -140,13 +140,11 @@ module Karaoke
 
 		post '/CreateArtist' do
 			begin
-				person = Artist.new
-				person.status = params[:status]
+				person = Artist.new(:status => params[:status])
+				song = Song.new(:name => params[:song_name])
 
-				song = Song.new
-				song.name = params[:song_name]
 				person.table = Table.get(params[:table_id])
-				person.songs << song
+				person.song = song
 
 				person.save
 			rescue Exception => e
@@ -154,7 +152,7 @@ module Karaoke
 					"Result" => "Error", "Message" => e.message
 				}
 			else
-				json = song.attributes.merge(song.artist.attributes).to_json(:only => [:name])
+				json = song.attributes.merge(person.attributes).to_json(:only => [:name])
 				result = {
 					"Result" => "OK",
 					"Record" => JSON.parse(json.gsub('name','song_name'))
@@ -167,9 +165,7 @@ module Karaoke
 		post '/UpdateArtist' do
 			begin
 				person = Artist.get(params[:id])
-
-				song = person.songs[0]
-
+				song = person.song
 				song.update(:name => params[:song_name])
 				person.update(:status => params[:status])
 			rescue Exception => e
@@ -189,7 +185,7 @@ module Karaoke
 			begin
 				person = Artist.get(params[:id])
 				#delete all songs belong to an artist
-				person.songs.each do |s|
+				person.song.each do |s|
 					s.destroy
 				end
 
