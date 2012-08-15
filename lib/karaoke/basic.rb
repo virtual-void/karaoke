@@ -185,10 +185,7 @@ module Karaoke
 			begin
 				person = Artist.get(params[:id])
 				#delete all songs belong to an artist
-				person.song.each do |s|
-					s.destroy
-				end
-
+				person.song.destroy
 				person.destroy
 			rescue Exception => e
 				result = {
