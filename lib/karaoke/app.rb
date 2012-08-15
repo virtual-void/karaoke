@@ -22,24 +22,26 @@ module Karaoke
 			haml :artists	
 		end
 
+		get '/view' do
+			haml :view
+		end
+
 		get '/update' do
 			content_type :json
 			persons = Artist.all
 			result_ = []
 
 			persons.each do |p|
-				song = p.songs[0] #get first song
-				#puts "SONG: #{song.attributes.merge(p.attributes).to_json(:only => [:name])}"
-				result_ << song.attributes.merge(p.attributes)
+				result_ << JSON.parse(
+					p.to_json(
+						:methods => [:song_name, :table_name],
+						:only => [:id, :status, :song_name, :table_name]
+						)
+					)
 			end
-			#puts "JSON_VIEW #{result_.to_json}"
-			json = 	JSON.parse(result_.to_json.gsub('name','song_name'))
-			puts "JSON_VIEW #{json.to_json}"
-			json.to_json
-		end
 
-		get '/view' do
-			haml :view
+			json = 	JSON.parse(result_.to_json)
+			json.to_json
 		end
 
 		post '/TableList' do
@@ -67,7 +69,6 @@ module Karaoke
 					"Record" => JSON.parse(table.to_json)
 				}
 			end
-
 			p result.to_json
 		end
 

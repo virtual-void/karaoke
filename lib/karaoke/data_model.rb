@@ -4,7 +4,7 @@ require 'dm-migrations'
 require 'dm-serializer'
 
 #Just for logging only
-#DataMapper::Logger.new(STDOUT, :debug)
+DataMapper::Logger.new(STDOUT, :debug)
 # Open the database karaoke.db
 DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/db/#{Sinatra::Application.environment}.sqlite" )
 
@@ -15,10 +15,19 @@ module Karaoke
 	    property :id, 			Serial
 	    property :status, 		Enum[ :regular, :paid, :vip, :outofturn ], :default => :regular
     	property :record_date, 	DateTime,  	:default => Time.now
+
 		#belongs_to :song
 		belongs_to :table
 		belongs_to :song
 		# has n, :songs
+
+		def song_name
+			song.name
+		end
+
+		def table_name
+			table.name
+		end
 	end
   
  	class Song

@@ -17,6 +17,20 @@ describe Karaoke do
 		
 	end
 
+	it "should return ALL data from all tables" do
+		persons = Karaoke::Artist.all
+		result_ = []
+
+		persons.each do |p|
+		 	#song = p.song #get first song
+		 	#result_ << song.attributes.merge(p.attributes)
+		 	puts "JSON: #{p.to_json(:methods => [:song_name, :table_name],:only => [:status, :song_name, :table_name])}"
+		 end
+		# #puts "JSON_VIEW #{result_.to_json}"
+		# json = 	JSON.parse(result_.to_json.gsub('name','song_name'))
+		# puts "JSON_VIEW #{json.to_json}"
+	end
+
 	it "should return all Tables from DB" do
 		#puts "TABLE COUNT: #{Karaoke::Table.all.count}"
 	end
