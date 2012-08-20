@@ -125,15 +125,11 @@ module Karaoke
 				result_ = []
 
 				persons.each do |p|
-					song = p.song #get first song
-					#puts "SONG: #{song.attributes.merge(p.attributes).to_json(:only => [:name])}"
-					result_ << song.attributes.merge(p.attributes)
+					result_ << JSON.parse(p.to_json(:methods => [:song_name]))
 				end
-				
-				puts "JSON::: #{result_.to_json}"
 
 				result = {
-					"Result" => "OK", "Records" => JSON.parse(result_.to_json.gsub('name','song_name'))
+					"Result" => "OK", "Records" => JSON.parse(result_.to_json)
 				}
 			end
 			p result.to_json
@@ -143,23 +139,21 @@ module Karaoke
 			begin
 				person = Artist.new(:status => params[:status])
 				song = Song.new(:name => params[:song_name])
-
-				person.table = Table.get(params[:table_id])
 				person.song = song
 
+				person.table = Table.get(params[:table_id])
 				person.save
 			rescue Exception => e
 				result = {
 					"Result" => "Error", "Message" => e.message
 				}
 			else
-				json = song.attributes.merge(person.attributes).to_json(:only => [:name])
+				json = JSON.parse(person.to_json(:methods => [:song_name]))
 				result = {
 					"Result" => "OK",
-					"Record" => JSON.parse(json.gsub('name','song_name'))
+					"Record" => JSON.parse(json.to_json)
 				}
 			end
-
 			p result.to_json
 		end
 
