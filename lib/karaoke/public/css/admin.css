@@ -5,3 +5,12 @@
     color:#333;  
     border-top:solid 1px #69a;  
 }  
+
+.my-footer {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 15px;
+  text-align:center;
+}

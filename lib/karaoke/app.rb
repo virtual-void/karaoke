@@ -121,9 +121,17 @@ module Karaoke
 					"Result" => "OK", "Records" => ''
 				}
 			else
-				persons = Artist.all()
+				if params[:jtSorting]
+					sort_criteria = params[:jtSorting]
+					if sort_criteria == 'status DESC'
+						persons = Artist.all(:order => [ :status.desc ])
+					else
+						persons = Artist.all(:order => [ :status.asc])
+					end
+				else
+					persons = Artist.all()
+				end
 				result_ = []
-
 				persons.each do |p|
 					result_ << JSON.parse(p.to_json(:methods => [:song_name]))
 				end
