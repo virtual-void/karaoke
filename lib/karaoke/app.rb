@@ -122,12 +122,7 @@ module Karaoke
 				}
 			else
 				if params[:jtSorting]
-					sort_criteria = params[:jtSorting]
-					if sort_criteria == 'status DESC'
-						persons = Artist.all(:order => [ :status.desc ])
-					else
-						persons = Artist.all(:order => [ :status.asc])
-					end
+					persons = Artist.all(:order => [ :status.asc])
 				else
 					persons = Artist.all()
 				end

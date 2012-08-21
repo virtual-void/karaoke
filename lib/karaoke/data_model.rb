@@ -13,7 +13,7 @@ module Karaoke
 		include DataMapper::Resource
 	 
 	    property :id, 			Serial
-	    property :status, 		Enum[ :regular, :paid, :vip, :outofturn ], :default => :regular
+	    property :status, 		Enum[ :vip, :outofturn, :paid, :regular ], :default => :regular
     	property :record_date, 	DateTime,  	:default => Time.now
 
 		#belongs_to :song
