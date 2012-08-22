@@ -14,5 +14,9 @@ describe 'App' do
       		last_response.status.should == 200
     	end
 
-  	  end
+      it 'should return list of songs from DB' do
+          puts "++++++"
+          post '/SongList'
+      end
+	  end
 end

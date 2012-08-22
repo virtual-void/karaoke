@@ -115,27 +115,34 @@ module Karaoke
 			p result.to_json
 		end
 
+		#Return all song names from DB
+		post '/SongList' do
+			songs = Song.all()
+			result_ = []
+			songs.each do |s|
+			 	result_ << s.name #JSON.parse(s.to_json( :only => [:name] ))
+			end
+			p result_.to_json
+		end
+
 		post '/ArtistList' do
-			if Artist.all.empty?
-				result = {
+				persons = Artist.all(:order => [ :status.asc ])
+				if persons.empty?
+					result = {
 					"Result" => "OK", "Records" => ''
-				}
-			else
-				if params[:jtSorting]
-					persons = Artist.all(:order => [ :status.asc])
+					}
 				else
-					persons = Artist.all()
-				end
-				result_ = []
-				persons.each do |p|
-					result_ << JSON.parse(p.to_json(:methods => [:song_name]))
+					result_ = []
+					persons.each do |p|
+						result_ << JSON.parse(p.to_json(:methods => [:song_name]))
+					end
+
+					result = {
+						"Result" => "OK", "Records" => JSON.parse(result_.to_json)
+					}
 				end
 
-				result = {
-					"Result" => "OK", "Records" => JSON.parse(result_.to_json)
-				}
-			end
-			p result.to_json
+				p result.to_json
 		end
 
 		post '/CreateArtist' do
@@ -164,8 +171,9 @@ module Karaoke
 			begin
 				person = Artist.get(params[:id])
 				song = person.song
+
 				song.update(:name => params[:song_name])
-				person.update(:status => params[:status])
+				person.update(:status => params[:status], :table_id => params[:table_id])
 			rescue Exception => e
 				result = {
 					"Result" => "Error", "Message" => e.message
