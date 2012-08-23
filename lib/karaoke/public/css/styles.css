@@ -31,7 +31,9 @@ table.center {
   color: #fffcb2;
   text-align:center;
   border:none;
-  font: 35px 'BazarMedium';
+  font-family: Verdana;
+  font-size: 25px;
+  font-style: normal;
 }
 
 .number_column { width: 5%;}
