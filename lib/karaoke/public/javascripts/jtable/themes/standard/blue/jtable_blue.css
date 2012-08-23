@@ -114,6 +114,14 @@ table.jtable tr.jtable-row-selected
     background-color: #3e9cda;
 }
 
+/* Selected row */
+table.jtable tr.jtable-row-highlited
+{
+    color: #ffffff;
+    background-color: #3e9cda;
+}
+
+
 /* Style for a child row */
 table.jtable tr.jtable-child-row
 {
