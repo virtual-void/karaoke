@@ -14,11 +14,14 @@
     #content
       %div{:id => 'table-begins'}
         %table{:class => "center", :id => "karaoke"}
-          %tr
-            %th{:class => "number_column"} #
-            %th{:class => "status_column"}
-            %th{:class => "table_column"} СТОЛИК
-            %th{:class => "song_column"} ПЕСНЯ
+          %thead
+            %tr
+              %th{:class => "number_column"} #
+              %th{:class => "status_column"}
+              %th{:class => "table_column"} СТОЛИК
+              %th{:class => "song_column"} ПЕСНЯ
+          %tbody
+            %tr
       %div{:id => "logo"}   
         %img{:src => "/images/logos/logo_big.png", :width =>"25%" , :height =>"20%",:class => "bottom-right"} 
     :javascript
