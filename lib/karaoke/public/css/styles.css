@@ -41,6 +41,13 @@ table.center {
 .table_column { width: 35%;}
 .song_column { width: 50%;}
 
+/* Selected row */
+table tr.karaoke-row-highlited
+{
+    color: #ffffff;
+    background-color: #3e9cda;
+}
+
 #logo {
     position:absolute;
     right:0; 
