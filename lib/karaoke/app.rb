@@ -92,6 +92,7 @@ module Karaoke
 		post '/DeleteTable' do
 			begin
 				table = Table.get(params[:id])
+				table.artists.destroy
 				table.destroy
 
 			rescue Exception => e
@@ -117,7 +118,7 @@ module Karaoke
 
 		#Return all song names from DB
 		post '/SongList' do
-			songs = Song.all()
+			songs = Song.all(:name.like => '%' + params[:term] + '%' )
 			result_ = []
 			songs.each do |s|
 			 	result_ << s.name #JSON.parse(s.to_json( :only => [:name] ))
@@ -148,7 +149,12 @@ module Karaoke
 		post '/CreateArtist' do
 			begin
 				person = Artist.new(:status => params[:status])
-				song = Song.new(:name => params[:song_name])
+				song = Song.first(:name => params[:song_name])
+				
+				if song.nil?
+					song = Song.new(:name => params[:song_name])
+				end
+
 				person.song = song
 
 				person.table = Table.get(params[:table_id])
@@ -170,10 +176,14 @@ module Karaoke
 		post '/UpdateArtist' do
 			begin
 				person = Artist.get(params[:id])
-				song = person.song
+				song = Song.first(:name => params[:song_name])
 
-				song.update(:name => params[:song_name])
-				person.update(:status => params[:status], :table_id => params[:table_id])
+				if song.nil?
+					song = Song.new(:name => params[:song_name])
+					song.save
+				end
+
+				person.update(:status => params[:status], :table_id => params[:table_id], :song_id => song.id)
 			rescue Exception => e
 				result = {
 					"Result" => "Error", "Message" => e.message
@@ -190,8 +200,6 @@ module Karaoke
 		post '/DeleteArtist' do
 			begin
 				person = Artist.get(params[:id])
-				#delete all songs belong to an artist
-				person.song.destroy
 				person.destroy
 			rescue Exception => e
 				result = {
