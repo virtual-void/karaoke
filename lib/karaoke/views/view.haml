@@ -20,9 +20,15 @@
 
       var new_row = $('<tr id=row_'+id+'><td class=hidden_id>'+id+'</td><td>'+index+'</td><td><img src=/images/icons/mic_ico.png border=0 width=45% height=40%></td><td>'+table+'</td><td>'+track+'</td></tr>');
       
-      $('#row_'+id).replaceWith(new_row);
+      $('#row_'+id).fadeOut("slow", function(){
+        var div = $("#row_"+id).hide();
+        $(this).replaceWith(new_row);
+        $('#row_'+id).fadeIn("slow");
+        highlight_first_row();
+      });
     }
 
+    // Support for events streaming
     $(function() {
       var eventSource = new EventSource('/stream');
 
