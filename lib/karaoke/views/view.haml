@@ -10,6 +10,19 @@
   %link{href:"/css/styles.css", rel:"stylesheet"}
 
   :javascript
+
+    function updateExistingRow(json_data) {
+      var obj = JSON.parse(json_data);
+      id = obj.record.id;
+      index = 0;
+      table = obj.record.table_name;
+      track = obj.record.song_name;
+
+      var new_row = $('<tr id=row_'+id+'><td class=hidden_id>'+id+'</td><td>'+index+'</td><td><img src=/images/icons/mic_ico.png border=0 width=45% height=40%></td><td>'+table+'</td><td>'+track+'</td></tr>');
+      
+      $('#row_'+id).replaceWith(new_row);
+    }
+
     $(function() {
       var eventSource = new EventSource('/stream');
 
@@ -29,6 +42,7 @@
     eventSource.addEventListener('update', function(event) {
         var stockData = event.data;
         console.log("Server update says:"+ stockData);
+        updateExistingRow(stockData);
     }, false);
     eventSource.addEventListener('create', function(event) {
         var stockData = event.data;
@@ -48,61 +62,72 @@
         %table{:class => "center", :id => "karaoke"}
           %thead
             %tr
+              %th{:class => "hidden_id"}
               %th{:class => "number_column"} #
               %th{:class => "status_column"}
               %th{:class => "table_column"} СТОЛИК
               %th{:class => "song_column"} ПЕСНЯ
           %tbody
-            %tr
-              %td 1
-              %td 2
-              %td 3
-              %td 4
-            %tr
-              %td 1
-              %td 2
-              %td 3
-              %td 4
-            %tr
-              %td 1
-              %td 2
-              %td 3
-              %td 4
-            %tr
-              %td 1
-              %td 2
-              %td 3
-              %td 4
-            %tr
-              %td 1
-              %td 2
-              %td 3
-              %td 4
-            %tr
-              %td 1
-              %td 2
-              %td 3
-              %td 4
-            %tr
-              %td 1
-              %td 2
-              %td 3
-              %td 4
-            %tr
-              %td 1
-              %td 2
-              %td 3
-              %td 4
-            %tr
-              %td 1
-              %td 2
-              %td 3
-              %td 4
-            %tr
-              %td 1
-              %td 2
-              %td 3
-              %td 4
+            %tr{:id => "row_1"}
+              %td{:id => "col_0", :class => "hidden_id"} 0
+              %td{:id => "col_1"} 1
+              %td{:id => "col_2"} 2
+              %td{:id => "col_3"} 3
+              %td{:id => "col_4"} 4
+            %tr{:id => "row_2"}
+              %td{:id => "col_0", :class => "hidden_id"} 0
+              %td{:id => "col_1"} 1
+              %td{:id => "col_2"} 2
+              %td{:id => "col_3"} 3
+              %td{:id => "col_4"} 4
+            %tr{:id => "row_3"}
+              %td{:id => "col_0", :class => "hidden_id"} 0
+              %td{:id => "col_1"} 1
+              %td{:id => "col_2"} 2
+              %td{:id => "col_3"} 3
+              %td{:id => "col_4"} 4
+            %tr{:id => "row_4"}
+              %td{:id => "col_0", :class => "hidden_id"} 0
+              %td{:id => "col_1"} 1
+              %td{:id => "col_2"} 2
+              %td{:id => "col_3"} 3
+              %td{:id => "col_4"} 4
+            %tr{:id => "row_5"}
+              %td{:id => "col_0", :class => "hidden_id"} 0
+              %td{:id => "col_1"} 1
+              %td{:id => "col_2"} 2
+              %td{:id => "col_3"} 3
+              %td{:id => "col_4"} 4
+            %tr{:id => "row_6"}
+              %td{:id => "col_0", :class => "hidden_id"} 0
+              %td{:id => "col_1"} 1
+              %td{:id => "col_2"} 2
+              %td{:id => "col_3"} 3
+              %td{:id => "col_4"} 4
+            %tr{:id => "row_7"}
+              %td{:id => "col_0", :class => "hidden_id"} 0
+              %td{:id => "col_1"} 1
+              %td{:id => "col_2"} 2
+              %td{:id => "col_3"} 3
+              %td{:id => "col_4"} 4
+            %tr{:id => "row_8"}
+              %td{:id => "col_0", :class => "hidden_id"} 0
+              %td{:id => "col_1"} 1
+              %td{:id => "col_2"} 2
+              %td{:id => "col_3"} 3
+              %td{:id => "col_4"} 4
+            %tr{:id => "row_9"}
+              %td{:id => "col_0", :class => "hidden_id"} 0
+              %td{:id => "col_1"} 1
+              %td{:id => "col_2"} 2
+              %td{:id => "col_3"} 3
+              %td{:id => "col_4"} 4
+            %tr{:id => "row_10"}
+              %td{:id => "col_0", :class => "hidden_id"} 0
+              %td{:id => "col_1"} 1
+              %td{:id => "col_2"} 2
+              %td{:id => "col_3"} 3
+              %td{:id => "col_4"} 4
       %div{:id => "logo"}   
         %img{:src => "/images/logos/logo_big.png", :width =>"25%" , :height =>"20%",:class => "bottom-right"} 
     :javascript

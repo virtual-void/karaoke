@@ -45,7 +45,7 @@ module Karaoke
 
 		get '/update' do
 			content_type :json
-			persons = Artist.all(:order => [ :status.asc ])
+			persons = Artist.all(:order => [ :status.asc ], :limit => 10)
 			result_ = []
 
 			persons.each do |p|
