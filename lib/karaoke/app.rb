@@ -2,7 +2,6 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'json'
-require 'sinatra-websocket'
 require "eventmachine"
 require 'sinatra/streaming'
 
@@ -34,37 +33,14 @@ module Karaoke
 		get '/stream', provides: 'text/event-stream' do
 		  stream :keep_open do |out|
 		  	settings.connections << out
-		    out.callback { puts 'closed'; settings.connections.delete(out) } # modified
+		  	puts "Connection opened\n"
+		    out.callback { puts 'Connection closed\n'; settings.connections.delete(out) } # modified
 
 		    # EventMachine::PeriodicTimer.new(2) { 
 			   #  settings.connections.each { |out| out << "data: Hello!!\n\n" }			    
 			   #  puts "Data sent to client"
 		    # } # added
 		  end
-		end
-		
-		#websockets currently aren't supported
-		get '/ws' do
-			request.websocket do |ws|
-				ws.onopen do
-					puts "Connection opened"
-					ws.send("Hello World!")
-					sockets << ws
-				end
-				ws.onmessage do |msg|
-					#EM.next_tick { sockets.each{|s| s.send(msg) } }
-					# EventMachine.run {
-					#   EventMachine.add_periodic_timer(1) {
-					#     sockets.each{|s| s.send("Test")}
-					#   }
-					# }
-					puts "MESSAGE: #{msg}"
-				end
-				ws.onclose do
-					puts "wetbsocket closed"
-					sockets.delete(ws)
-      			end
-      		end
 		end
 
 		get '/update' do
@@ -205,13 +181,21 @@ module Karaoke
 					"Result" => "Error", "Message" => e.message
 				}
 			else
-				json = JSON.parse(person.to_json(:methods => [:song_name]))
+				json = JSON.parse(person.to_json(:methods => [:song_name, :table_name]))
 				result = {
 					"Result" => "OK",
 					"Record" => JSON.parse(json.to_json)
 				}
 			end
-			settings.connections.each { |out| out << "data: Artist created\n\n" }
+
+			settings.connections.each { |out| 
+				view_result = {
+					:command => "created",
+					:record => JSON.parse(json.to_json)
+				}
+				out << "data: #{view_result.to_json}\n\n" 
+			}
+
 			p result.to_json
 		end
 
@@ -235,7 +219,18 @@ module Karaoke
 					"Result" => "OK"
 				}
 			end
-			settings.connections.each { |out| out << "data: Artist updated\n\n" }
+
+			settings.connections.each { |out| 
+				json = JSON.parse(person.to_json(:methods => [:song_name, :table_name]))
+
+				view_result = {
+					:command => "updated",
+					:record => JSON.parse(json.to_json)
+				}
+
+				out << "data: #{view_result.to_json}\n\n" 
+			}
+
 			p result.to_json
 		end
 
@@ -252,8 +247,18 @@ module Karaoke
 					"Result" => "OK"
 				}
 			end
+			
+			settings.connections.each { |out| 
+				json = JSON.parse(person.to_json(:methods => [:song_name, :table_name]))
 
-			settings.connections.each { |out| out << "data: Artist deleted\n\n" }
+				view_result = {
+					:command => "deleted",
+					:record => JSON.parse(json.to_json)
+				}
+				
+				out << "data: #{view_result.to_json}\n\n" 
+			}
+
 			p result.to_json
 		end
 	end

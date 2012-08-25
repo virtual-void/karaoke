@@ -9,6 +9,21 @@
 
   %link{href:"/css/styles.css", rel:"stylesheet"}
 
+  :javascript
+    $(function() {
+      var eventSource = new EventSource('/stream');
+
+      eventSource.addEventListener('open', function() {
+        console.log("Connection opened");
+    }, false);
+
+    // An event without a type came in
+    eventSource.addEventListener('message', function(event) {
+        var stockData = event.data;
+        console.log("Server says:"+ stockData);
+    }, false);
+    });
+
   %title Электронное табло караоке
   %body  
     #content
