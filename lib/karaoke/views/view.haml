@@ -11,21 +11,49 @@
 
   :javascript
 
+    //TODO: implement this
+    function recalculateIndexes()
+    {
+      $('#karaoke > tbody tr').each(function() {
+        if (!this.rowIndex) return; // skip first row
+        var index = this.cells[1].innerHTML;
+        console.log(index);
+      });
+    }
+
     function updateExistingRow(json_data) {
       var obj = JSON.parse(json_data);
       id = obj.record.id;
       index = 0;
       table = obj.record.table_name;
       track = obj.record.song_name;
-
-      var new_row = $('<tr id=row_'+id+'><td class=hidden_id>'+id+'</td><td>'+index+'</td><td><img src=/images/icons/mic_ico.png border=0 width=45% height=40%></td><td>'+table+'</td><td>'+track+'</td></tr>');
       
       $('#row_'+id).fadeOut("slow", function(){
+        /// Find current row index
+        var $tr = $(this).closest('tr');
+        var myRow = $tr.index();
+        //// end
+        var new_row = $('<tr id=row_'+id+'><td class=hidden_id>'+id+'</td><td>'+(myRow+1)+'</td><td><img src=/images/icons/mic_ico.png border=0 width=45% height=40%></td><td>'+table+'</td><td>'+track+'</td></tr>');
         var div = $("#row_"+id).hide();
         $(this).replaceWith(new_row);
         $('#row_'+id).fadeIn("slow");
         highlight_first_row();
       });
+    }
+
+    function deleteExistingRow(json_data) {
+      var obj = JSON.parse(json_data);
+      id = obj.record.id;
+
+      $('#row_'+id).children('td, th').animate({ padding: 0 }).wrapInner('<div />').children().slideUp("normal", function(){ $(this).remove();});
+
+      //FIXME: this doesn't work yet...
+      highlight_first_row();    
+      recalculateIndexes();
+    }
+
+    function addNewRow(json_data) {
+
     }
 
     // Support for events streaming
@@ -44,6 +72,7 @@
     eventSource.addEventListener('delete', function(event) {
         var stockData = event.data;
         console.log("Server delete says:"+ stockData);
+        deleteExistingRow(stockData);
     }, false);
     eventSource.addEventListener('update', function(event) {
         var stockData = event.data;
@@ -76,64 +105,64 @@
           %tbody
             %tr{:id => "row_1"}
               %td{:id => "col_0", :class => "hidden_id"} 0
-              %td{:id => "col_1"} 1
-              %td{:id => "col_2"} 2
-              %td{:id => "col_3"} 3
-              %td{:id => "col_4"} 4
+              %td{:id => "col_1"}
+              %td{:id => "col_2"}
+              %td{:id => "col_3"}
+              %td{:id => "col_4"}
             %tr{:id => "row_2"}
               %td{:id => "col_0", :class => "hidden_id"} 0
-              %td{:id => "col_1"} 1
-              %td{:id => "col_2"} 2
-              %td{:id => "col_3"} 3
-              %td{:id => "col_4"} 4
+              %td{:id => "col_1"}
+              %td{:id => "col_2"}
+              %td{:id => "col_3"}
+              %td{:id => "col_4"}
             %tr{:id => "row_3"}
               %td{:id => "col_0", :class => "hidden_id"} 0
-              %td{:id => "col_1"} 1
-              %td{:id => "col_2"} 2
-              %td{:id => "col_3"} 3
-              %td{:id => "col_4"} 4
+              %td{:id => "col_1"}
+              %td{:id => "col_2"}
+              %td{:id => "col_3"}
+              %td{:id => "col_4"}
             %tr{:id => "row_4"}
               %td{:id => "col_0", :class => "hidden_id"} 0
-              %td{:id => "col_1"} 1
-              %td{:id => "col_2"} 2
-              %td{:id => "col_3"} 3
-              %td{:id => "col_4"} 4
+              %td{:id => "col_1"}
+              %td{:id => "col_2"}
+              %td{:id => "col_3"}
+              %td{:id => "col_4"}
             %tr{:id => "row_5"}
               %td{:id => "col_0", :class => "hidden_id"} 0
-              %td{:id => "col_1"} 1
-              %td{:id => "col_2"} 2
-              %td{:id => "col_3"} 3
-              %td{:id => "col_4"} 4
+              %td{:id => "col_1"}
+              %td{:id => "col_2"}
+              %td{:id => "col_3"}
+              %td{:id => "col_4"}
             %tr{:id => "row_6"}
               %td{:id => "col_0", :class => "hidden_id"} 0
-              %td{:id => "col_1"} 1
-              %td{:id => "col_2"} 2
-              %td{:id => "col_3"} 3
-              %td{:id => "col_4"} 4
+              %td{:id => "col_1"}
+              %td{:id => "col_2"}
+              %td{:id => "col_3"}
+              %td{:id => "col_4"}
             %tr{:id => "row_7"}
               %td{:id => "col_0", :class => "hidden_id"} 0
-              %td{:id => "col_1"} 1
-              %td{:id => "col_2"} 2
-              %td{:id => "col_3"} 3
-              %td{:id => "col_4"} 4
+              %td{:id => "col_1"}
+              %td{:id => "col_2"}
+              %td{:id => "col_3"}
+              %td{:id => "col_4"}
             %tr{:id => "row_8"}
               %td{:id => "col_0", :class => "hidden_id"} 0
-              %td{:id => "col_1"} 1
-              %td{:id => "col_2"} 2
-              %td{:id => "col_3"} 3
-              %td{:id => "col_4"} 4
+              %td{:id => "col_1"}
+              %td{:id => "col_2"}
+              %td{:id => "col_3"}
+              %td{:id => "col_4"}
             %tr{:id => "row_9"}
               %td{:id => "col_0", :class => "hidden_id"} 0
-              %td{:id => "col_1"} 1
-              %td{:id => "col_2"} 2
-              %td{:id => "col_3"} 3
-              %td{:id => "col_4"} 4
+              %td{:id => "col_1"}
+              %td{:id => "col_2"}
+              %td{:id => "col_3"}
+              %td{:id => "col_4"}
             %tr{:id => "row_10"}
               %td{:id => "col_0", :class => "hidden_id"} 0
-              %td{:id => "col_1"} 1
-              %td{:id => "col_2"} 2
-              %td{:id => "col_3"} 3
-              %td{:id => "col_4"} 4
+              %td{:id => "col_1"}
+              %td{:id => "col_2"}
+              %td{:id => "col_3"}
+              %td{:id => "col_4"}
       %div{:id => "logo"}   
         %img{:src => "/images/logos/logo_big.png", :width =>"25%" , :height =>"20%",:class => "bottom-right"} 
     :javascript
