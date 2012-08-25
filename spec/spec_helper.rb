@@ -10,6 +10,7 @@ $:.unshift( '.' )
 $:.unshift( File.dirname(__FILE__) + '../lib' )
 
 require 'karaoke/data_model'
+require 'websocket'
 require 'karaoke/app'
 
 set :environment, :test

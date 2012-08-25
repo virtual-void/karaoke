@@ -4,9 +4,9 @@ require 'dm-migrations'
 require 'dm-serializer'
 
 #Just for logging only
-DataMapper::Logger.new(STDOUT, :debug)
+#DataMapper::Logger.new(STDOUT, :debug)
 # Open the database karaoke.db
-DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/db/#{Sinatra::Application.environment}.sqlite" )
+#DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/db/#{Sinatra::Application.environment}.sqlite" )
 
 module Karaoke
 	class Artist
@@ -47,7 +47,7 @@ module Karaoke
 		has n, :artists  # defaults to :required => true
 	end
 
-	DataMapper.finalize
-	# Automatically create the tables if they don't exist
-	DataMapper.auto_upgrade! #auto_migrate
+	# DataMapper.finalize
+	# # Automatically create the tables if they don't exist
+	# DataMapper.auto_upgrade! #auto_migrate
 end
