@@ -22,6 +22,23 @@
         var stockData = event.data;
         console.log("Server says:"+ stockData);
     }, false);
+    eventSource.addEventListener('delete', function(event) {
+        var stockData = event.data;
+        console.log("Server delete says:"+ stockData);
+    }, false);
+    eventSource.addEventListener('update', function(event) {
+        var stockData = event.data;
+        console.log("Server update says:"+ stockData);
+    }, false);
+    eventSource.addEventListener('create', function(event) {
+        var stockData = event.data;
+        console.log("Server create says:"+ stockData);
+    }, false);
+    eventSource.addEventListener('error', function(e) {
+      if (e.eventPhase == EventSource.CLOSED) {
+        console.log("Connection closed");
+      }
+    }, false);
     });
 
   %title Электронное табло караоке

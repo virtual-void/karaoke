@@ -193,7 +193,7 @@ module Karaoke
 					:command => "created",
 					:record => JSON.parse(json.to_json)
 				}
-				out << "data: #{view_result.to_json}\n\n" 
+				out << "event:create\r\ndata: #{view_result.to_json}\n\n" 
 			}
 
 			p result.to_json
@@ -228,7 +228,7 @@ module Karaoke
 					:record => JSON.parse(json.to_json)
 				}
 
-				out << "data: #{view_result.to_json}\n\n" 
+				out << "event:update\r\ndata: #{view_result.to_json}\n\n" 
 			}
 
 			p result.to_json
@@ -247,7 +247,7 @@ module Karaoke
 					"Result" => "OK"
 				}
 			end
-			
+
 			settings.connections.each { |out| 
 				json = JSON.parse(person.to_json(:methods => [:song_name, :table_name]))
 
@@ -256,7 +256,7 @@ module Karaoke
 					:record => JSON.parse(json.to_json)
 				}
 				
-				out << "data: #{view_result.to_json}\n\n" 
+				out << "event:delete\r\ndata: #{view_result.to_json}\n\n" 
 			}
 
 			p result.to_json
