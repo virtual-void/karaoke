@@ -40,7 +40,6 @@ table.center {
 .status_column { width: 10%;}
 .table_column { width: 35%;}
 .song_column { width: 50%;}
-.hidden_id { display: none; }
 
 /* Selected row */
 table tr.karaoke-row-highlited

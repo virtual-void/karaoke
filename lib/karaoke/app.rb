@@ -3,7 +3,7 @@ require 'sinatra'
 require 'haml'
 require 'json'
 require "eventmachine"
-require 'sinatra/streaming'
+#require 'sinatra/streaming'
 
 module Karaoke
 	class App < Sinatra::Base
@@ -33,8 +33,11 @@ module Karaoke
 		get '/stream', provides: 'text/event-stream' do
 		  stream :keep_open do |out|
 		  	settings.connections << out
+		  	headers 'Cache-Control' => 'no-cache',
+		  	'Connection' => 'keep-alive'
+ 			status 200
 		  	puts "Connection opened\n"
-		    out.callback { puts 'Connection closed\n'; settings.connections.delete(out) } # modified
+		    out.callback { puts "Connection closed\n"; settings.connections.delete(out) } # modified
 
 		    # EventMachine::PeriodicTimer.new(2) { 
 			   #  settings.connections.each { |out| out << "data: Hello!!\n\n" }			    
@@ -43,23 +46,20 @@ module Karaoke
 		  end
 		end
 
-		get '/update' do
-			content_type :json
-			persons = Artist.all(:order => [ :status.asc ], :limit => 10)
-			result_ = []
+		# get '/update' do
+		# 	content_type :json
+		# 	persons = Artist.all(:order => [ :status.asc ], :limit => 10)
+		# 	result_ = []
 
-			persons.each do |p|
-				result_ << JSON.parse(
-					p.to_json(
-						:methods => [:song_name, :table_name],
-						:only => [:id, :status, :song_name, :table_name]
-						)
-					)
-			end
+		# 	persons.each_with_index  {|val, index|
+		# 		result_ << JSON.parse(val.to_json(:methods => [:song_name, :table_name],
+		# 											:only => [:id, :status, :song_name, :table_name]))
+		# 		result_[index]["index"] = index+1
+		# 	}
 
-			json = 	JSON.parse(result_.to_json)
-			json.to_json
-		end
+		# 	json = 	JSON.parse(result_.to_json)
+		# 	json.to_json
+		# end
 
 		post '/TableList' do
 			if Table.all.empty?
@@ -144,23 +144,45 @@ module Karaoke
 		end
 
 		post '/ArtistList' do
-				persons = Artist.all(:order => [ :status.asc ])
-				if persons.empty?
-					result = {
+			persons = Artist.all(:order => [ :status.asc, :record_date.asc ])
+
+			if persons.empty?
+				result = {		
 					"Result" => "OK", "Records" => ''
-					}
-				else
-					result_ = []
-					persons.each do |p|
-						result_ << JSON.parse(p.to_json(:methods => [:song_name]))
-					end
+				}
+			else
+				result_ = []
+				persons.each_with_index  {|val, index|
+					result_ << JSON.parse(val.to_json(:methods => [:table_name, :song_name],
+													:only => [:id, :status, :table_id, :song_name, :record_date]))
+					result_[index]["index"] = index+1
+				}
+					
+				result = {
+					"Result" => "OK", "Records" => JSON.parse(result_.to_json)
+				}
 
-					result = {
-						"Result" => "OK", "Records" => JSON.parse(result_.to_json)
-					}
-				end
+				persons = Artist.all(:order => [ :status.asc, :record_date.asc ], :limit => 10)
 
-				p result.to_json
+				result_ = []
+				persons.each_with_index  {|val, index|
+					result_ << JSON.parse(val.to_json(:methods => [:table_name, :song_name],
+													:only => [:status, :table_name, :song_name]))
+					result_[index]["index"] = index+1
+				}
+
+				settings.connections.each { |out| 
+					view_result = {
+						:command => "listed",
+						:count => result_.length,
+						:records => JSON.parse(result_.to_json)
+					}
+					
+					out << "event:list\r\ndata: #{view_result.to_json}\n\n" 
+				}
+
+			end
+			p result.to_json
 		end
 
 		post '/CreateArtist' do
@@ -175,6 +197,7 @@ module Karaoke
 				person.song = song
 
 				person.table = Table.get(params[:table_id])
+				person.record_date = Time.now
 				person.save
 			rescue Exception => e
 				result = {
@@ -186,15 +209,31 @@ module Karaoke
 					"Result" => "OK",
 					"Record" => JSON.parse(json.to_json)
 				}
-			end
+#==>>
+				persons = Artist.all(:order => [ :status.asc, :record_date.asc ], :limit => 10)
 
-			settings.connections.each { |out| 
-				view_result = {
-					:command => "created",
-					:record => JSON.parse(json.to_json)
+				result_ = []
+				created_index = 0
+				persons.each_with_index  {|val, index|
+					result_ << JSON.parse(val.to_json(:methods => [:table_name, :song_name],
+													:only => [:status, :table_name, :song_name]))
+					result_[index]["index"] = index+1
+					if val.eql?(person)
+						created_index = index
+					end
 				}
-				out << "event:create\r\ndata: #{view_result.to_json}\n\n" 
-			}
+
+				settings.connections.each { |out| 
+					view_result = {
+						:command => "created",
+						:index => created_index,
+						:count => result_.length,
+						:records => JSON.parse(result_.to_json)
+					}
+					out << "event:create\r\ndata: #{view_result.to_json}\n\n" 
+				}
+#<==
+			end
 
 			p result.to_json
 		end
@@ -209,7 +248,36 @@ module Karaoke
 					song.save
 				end
 
-				person.update(:status => params[:status], :table_id => params[:table_id], :song_id => song.id)
+				if person.status.to_s.eql?(params[:status])
+					person.update(:song_id => song.id)
+				else
+					person.update(:record_date => Time.now, :status => params[:status], :song_id => song.id)
+				end
+#==>
+				persons = Artist.all(:order => [ :status.asc, :record_date.asc ], :limit => 10)
+
+				result_ = []
+				updated_index = 0
+				persons.each_with_index  {|val, index|
+					result_ << JSON.parse(val.to_json(:methods => [:table_name, :song_name],
+													:only => [:status, :table_name, :song_name]))
+					result_[index]["index"] = index+1
+					if val.eql?(person)
+						updated_index = index
+					end
+				}
+
+				settings.connections.each { |out| 
+					view_result = {
+						:command => "updated",
+						:index => updated_index,
+						:count => result_.length,
+						:records => JSON.parse(result_.to_json)
+					}
+
+					out << "event:update\r\ndata: #{view_result.to_json}\n\n" 
+				}
+#<==
 			rescue Exception => e
 				result = {
 					"Result" => "Error", "Message" => e.message
@@ -220,23 +288,35 @@ module Karaoke
 				}
 			end
 
-			settings.connections.each { |out| 
-				json = JSON.parse(person.to_json(:methods => [:song_name, :table_name]))
-
-				view_result = {
-					:command => "updated",
-					:record => JSON.parse(json.to_json)
-				}
-
-				out << "event:update\r\ndata: #{view_result.to_json}\n\n" 
-			}
-
 			p result.to_json
 		end
 
 		post '/DeleteArtist' do
 			begin
 				person = Artist.get(params[:id])
+
+				settings.connections.each { |out| 
+					persons = Artist.all(:order => [ :status.asc, :record_date.asc ], :limit => 10)
+
+					result_ = []
+					deleted_index = 0
+					persons.each_with_index  {|val, index|
+						result_ << JSON.parse(val.to_json(:methods => [:table_name, :song_name],
+														:only => [:status, :table_name, :song_name]))
+						result_[index]["index"] = index+1
+						if val.eql?(person)
+							deleted_index = index+1
+						end
+					}
+
+					view_result = {
+						:command => "deleted",
+						:index => deleted_index
+					}
+					
+					out << "event:delete\r\ndata: #{view_result.to_json}\n\n" 
+				}
+
 				person.destroy
 			rescue Exception => e
 				result = {
@@ -247,17 +327,6 @@ module Karaoke
 					"Result" => "OK"
 				}
 			end
-
-			settings.connections.each { |out| 
-				json = JSON.parse(person.to_json(:methods => [:song_name, :table_name]))
-
-				view_result = {
-					:command => "deleted",
-					:record => JSON.parse(json.to_json)
-				}
-				
-				out << "event:delete\r\ndata: #{view_result.to_json}\n\n" 
-			}
 
 			p result.to_json
 		end
